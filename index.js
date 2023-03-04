@@ -26,8 +26,7 @@ app.get('/get/:myparam', (req, res) => {
     })
   });
 
-  //res.send('GET request to the homepage')
-})
+
 
 // GET method route
 app.get('/get', (req, res) => {
