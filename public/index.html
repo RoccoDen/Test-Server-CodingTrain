@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <h1 id="title">My application</h1>
+
+    <form action="">
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname" value=""><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname" value=""><br><br>
+    </form> 
+
+    <br>
+    <button id="sendBtn">send</button>
+
+    <br>
+    <button id="getBtn">get</button>
+
+    <script>
+        console.log('Hello world');
+
+
+
+        const elementPost = document.getElementById("sendBtn");
+        elementPost.addEventListener("click", postApi); 
+        const elementGet = document.getElementById("getBtn");
+        elementGet.addEventListener("click", getApi);    
+
+        async function postApi(){
+          const name = document.getElementById("fname").value;
+          const lastname = document.getElementById("lname").value;
+          const data = {name,lastname};
+          const options = {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+
+          }
+          const res = await fetch ('/api', options);
+          const json = await res.json();
+          console.log(json);
+        }
+
+        async function getApi(){
+          const res = await fetch ('/get');
+          const json = await res.json();
+          console.log(json);
+
+          showData(json);
+        }
+
+        function showData(data){
+          for(item of data.data){
+            console.log(item.lastname);
+
+            const root = document.createElement('div');
+            const name = document.createElement('div');
+            const lastname = document.createElement('div');
+
+            name.textContent = 'Name ' + item.name;
+            lastname.textContent = 'Lastname ' + item.lastname; 
+
+            root.append(name, lastname);
+            document.body.append(root);
+
+
+          }
+        }
+
+        
+        
+        
+    </script>
+
+</body>
+
+</html>
